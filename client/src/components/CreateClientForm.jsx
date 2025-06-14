@@ -54,7 +54,7 @@ const CreateClientForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted", formData);
-        setFormData({
+    setFormData({
       salutation: "",
       name: "",
       pan: "",
@@ -122,17 +122,17 @@ const CreateClientForm = () => {
   };
 
   const inputClass =
-    "peer w-full rounded-3xl border border-zinc-500 bg-zinc-900 px-4 pt-5 pb-2 text-sm text-white placeholder-transparent focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all duration-200";
+    "peer w-full rounded-3xl border border-gray-400 bg-zinc-900 px-4 pt-5 pb-2 text-sm text-white placeholder-transparent focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all duration-200";
 
   const selectClass =
-    "peer block w-full appearance-none rounded-3xl border border-zinc-500 bg-zinc-900 px-4 pt-6 pb-2 text-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 pr-10";
+    "peer block w-full appearance-none rounded-3xl border border-gray-400 bg-zinc-900 px-4 pt-6 pb-2 text-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 pr-10";
 
   const labelClass =
     "absolute -top-2 left-4 z-10 rounded-xl px-3 text-sm text-blue-400 bg-zinc-900 transition-all duration-200 transform scale-90 origin-top-left peer-placeholder-shown:top-4 peer-placeholder-shown:left-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-zinc-500 peer-placeholder-shown:bg-zinc-900 peer-placeholder-shown:scale-100 peer-focus:-top-2 peer-focus:left-4 peer-focus:text-blue-400 peer-focus:bg-zinc-900 peer-focus:scale-90";
 
 
   return (
-    <div className="min-h-screen bg-zinc-900 text-white p-6">
+    <div className="min-h-screen bg-zinc-900 text-white py-6 px-9">
       <h1 className="text-center text-3xl font-semibold text-blue-400 mb-8">
         Create Client
       </h1>
