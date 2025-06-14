@@ -54,6 +54,37 @@ const CreateClientForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form Submitted", formData);
+        setFormData({
+      salutation: "",
+      name: "",
+      pan: "",
+      mobileNumber: "",
+      alternateMobileNumber: "",
+      emailAddress: "",
+      alternateEmailAddress: "",
+      dateOfBirth: "",
+      dateOfBirthGreeting: "",
+      anniversaryDate: "",
+      gender: "",
+      occupation: "",
+      telOff: "",
+      telRes: "",
+      pinCode: "",
+      address1: "",
+      address2: "",
+      address3: "",
+      city: "",
+      state: "",
+      country: "",
+      parentGuardianName: "",
+      guardianPan: "",
+      rmName: "",
+      associateName: "",
+      clientStatus: "",
+      arnNumber: "",
+      customerType: "",
+      loginStatus: "",
+    });
   };
 
   const handleCancel = () => {
