@@ -92,7 +92,7 @@ export default function AuthComponent() {
             <button
               type="button"
               onClick={() => setShowForgotPassword(false)}
-              className="text-sm text-blue-400 hover:underline mt-2"
+              className="inline-block text-blue-500 font-medium transform transition duration-300 hover:scale-105 hover:text-blue-700"
             >
               Back to Login
             </button>
@@ -161,7 +161,7 @@ export default function AuthComponent() {
                 <button
                   type="button"
                   onClick={() => setShowForgotPassword(true)}
-                  className="text-sm text-blue-400 hover:underline"
+                  className="inline-block text-blue-500 font-medium transform transition duration-300 hover:scale-105 hover:text-blue-700"
                 >
                   Forgot Password?
                 </button>
@@ -235,7 +235,7 @@ export default function AuthComponent() {
         )}
         <button
           onClick={handleSwitch}
-          className="mt-4 text-blue-400 hover:underline w-full"
+          className="mt-4 text-blue-400 hover:underline w-full "
         >
           {isLogin ? "Don't have an account? Register" : "Already have an account? Login"}
         </button>
