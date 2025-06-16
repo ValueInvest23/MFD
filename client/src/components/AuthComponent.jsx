@@ -78,7 +78,7 @@ export default function AuthComponent() {
                 type="email"
                 name="forgotPasswordEmail"
                 placeholder="Enter your email"
-                className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
+                className="w-full p-2 hover:border-blue-500  rounded bg-gray-700 border border-gray-600 focus:outline-none"
                 value={forgotPasswordEmail}
                 onChange={(e) => setForgotPasswordEmail(e.target.value)}
               />
@@ -109,7 +109,7 @@ export default function AuthComponent() {
                     name="username"
                     placeholder="Username"
                     onChange={handleChange}
-                    className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
+                    className="w-full p-2 rounded hover:border-blue-500  bg-gray-700 border border-gray-600 focus:outline-none"
                   />
                   {errors.username && <p className="text-red-500 text-sm">{errors.username}</p>}
                 </div>
@@ -119,7 +119,7 @@ export default function AuthComponent() {
                     name="password"
                     placeholder="Password"
                     onChange={handleChange}
-                    className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
+                    className="w-full p-2 hover:border-blue-500  rounded bg-gray-700 border border-gray-600 focus:outline-none"
                   />
                   <span
                     className="absolute right-3 top-2 cursor-pointer"
@@ -139,16 +139,16 @@ export default function AuthComponent() {
                       setCaptchaInput(e.target.value);
                       handleChange(e);
                     }}
-                    className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
+                    className="w-full p-2 hover:border-blue-500  rounded bg-gray-700 border border-gray-600 focus:outline-none"
                   />
                   {errors.captchaInput && (
                     <p className="text-red-500 text-sm">{errors.captchaInput}</p>
                   )}
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="font-mono bg-gray-600 px-3 py-1 rounded text-lg">{captcha}</span>
+                  <span className="text-xl font-bold px-3 py-1 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded animate-wave animate-distort animate-flicker tracking-widest">{captcha}</span>
                   <RefreshCcw
-                    className="cursor-pointer"
+                    className="cursor-pointer text-white hover:rotate-180 transition-transform duration-300"
                     onClick={generateCaptcha}
                   />
                 </div>
@@ -180,7 +180,7 @@ export default function AuthComponent() {
                       name={field.name}
                       placeholder={field.placeholder}
                       onChange={handleChange}
-                      className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
+                      className="w-full p-2 hover:border-blue-500 rounded bg-gray-700 border border-gray-600 focus:outline-none"
                     />
                     {errors[field.name] && (
                       <p className="text-red-500 text-sm">{errors[field.name]}</p>
@@ -193,7 +193,7 @@ export default function AuthComponent() {
                     name="password"
                     placeholder="Password"
                     onChange={handleChange}
-                    className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
+                    className="w-full p-2 hover:border-blue-500  rounded bg-gray-700 border border-gray-600 focus:outline-none"
                   />
                   <span
                     className="absolute right-3 top-2 cursor-pointer"
@@ -209,7 +209,7 @@ export default function AuthComponent() {
                     name="confirmPassword"
                     placeholder="Confirm Password"
                     onChange={handleChange}
-                    className="w-full p-2 rounded bg-gray-700 border border-gray-600 focus:outline-none"
+                    className="w-full p-2 hover:border-blue-500  rounded bg-gray-700 border border-gray-600 focus:outline-none"
                   />
                   <span
                     className="absolute right-3 top-2 cursor-pointer"
@@ -224,7 +224,7 @@ export default function AuthComponent() {
                 <div className="col-span-2">
                   <button
                     type="submit"
-                    className="w-full bg-green-600 hover:bg-green-700 p-2 rounded"
+                    className="w-full bg-blue-600 hover:bg-blue-700 p-2 rounded"
                   >
                     Register
                   </button>
