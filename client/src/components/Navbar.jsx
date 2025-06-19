@@ -115,7 +115,7 @@ export default function Navbar() {
                 </div>
             </div>
 
-            <div className="bg-gray-800 hidden md:flex md:justify-center md:items-center md:gap-2 px-4 py-2 space-x-6">
+            <div className="bg-gray-800  hidden md:flex md:justify-center md:items-center md:gap-2 px-4 py-2 space-x-6">
                 {navItems.map((item) => (
                     <div
                         key={item.id}
@@ -140,7 +140,7 @@ export default function Navbar() {
                             )}
                         </button>
                         {item.subItems.length > 0 && openDropdown === item.id && (
-                            <div className="absolute top-full left-0 mt-1 bg-gray-700 rounded-lg shadow-lg py-2 w-48 z-50">
+                            <div className="absolute top-full  left-0 mt-1 bg-gray-700 rounded-lg shadow-lg py-2 w-48 z-50">
                                 {item.subItems.map((subItem, idx) => (
                                     <div
                                         key={idx}
