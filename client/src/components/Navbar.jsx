@@ -80,7 +80,8 @@ export default function Navbar() {
                 </div>
             </div>
 
-            <div className="bg-gray-800 hidden md:flex md:justify-center md:items-center md:gap-2 px-4 py-2 space-x-6">
+            {/* Desktop Menu */}
+            <div className="bg-gray-800 hidden md:flex md:justify-center px-4 py-2 space-x-6">
                 {navItems.map((item) => (
                     <div
                         key={item.id}
@@ -88,33 +89,37 @@ export default function Navbar() {
                         onMouseEnter={() => setOpenDropdown(item.id)}
                         onMouseLeave={() => setOpenDropdown(null)}
                     >
-                        <button
-                            onClick={() => {
-                                setActiveLink(item.id);
-                                setOpenDropdown(openDropdown === item.id ? null : item.id);
-                            }}
-                            className={`flex items-center space-x-1 text-sm font-medium hover:text-blue-400 ${activeLink === item.id ? "text-blue-400 underline" : "text-white"
-                                }`}
-                        >
-                            <span>{item.label}</span>
-                            {item.subItems.length > 0 && (
-                                <ChevronDown
-                                    size={16}
-                                    className={`transition-transform duration-200 ${openDropdown === item.id ? "rotate-180" : "rotate-0"}`}
-                                />
-                            )}
-                        </button>
-                        {item.subItems.length > 0 && openDropdown === item.id && (
-                            <div className="absolute top-full left-0 mt-1 bg-gray-700 rounded-lg shadow-lg py-2 w-48 z-50">
-                                {item.subItems.map((subItem, idx) => (
-                                    <div
-                                        key={idx}
-                                        className="block px-4 py-2 text-sm hover:bg-gray-600 cursor-pointer"
-                                    >
-                                        {subItem}
-                                    </div>
-                                ))}
-                            </div>
+                        {item.subItems.length === 0 ? (
+                            <Link
+                                to={`/${item.id}`}
+                                onClick={() => setActiveLink(item.id)}
+                                className={`text-sm font-medium hover:text-blue-400 ${activeLink === item.id ? "text-blue-400 underline" : "text-white"}`}
+                            >
+                                {item.label}
+                            </Link>
+                        ) : (
+                            <>
+                                <button
+                                    className={`flex items-center space-x-1 text-sm font-medium hover:text-blue-400 ${activeLink === item.id ? "text-blue-400 underline" : "text-white"}`}
+                                >
+                                    <span>{item.label}</span>
+                                    <ChevronDown
+                                        size={16}
+                                        className={`transition-transform duration-200 group-hover:rotate-180 ${openDropdown === item.id ? "rotate-180" : "rotate-0"}`}
+                                    />
+                                </button>
+                                <div className="absolute top-full left-0 mt-1 bg-gray-700 rounded-lg shadow-lg py-2 w-48 z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200">
+                                    {item.subItems.map((subItem, i) => (
+                                        <Link
+                                            key={i}
+                                            to={`/${item.id}/${makeSlug(subItem)}`}
+                                            className="block px-4 py-2 text-sm hover:bg-gray-600"
+                                        >
+                                            {subItem}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </>
                         )}
                     </div>
                 ))}
