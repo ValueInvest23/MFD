@@ -9,45 +9,52 @@ export default function Navbar() {
 
     const navItems = [
         {
+            label: "Dashboard",
+            id: "dashboard",
+            subItems: [
+
+            ]
+        },
+        {
+            label: "CRM",
+            id: "crm",
+            subItems: [
+
+            ]
+        },
+        {
             label: "Client",
             id: "client",
             subItems: [
                 "Create Client",
                 "Update Client",
-                "Search Client",
-                "Delete Client"
             ]
         },
-        {
-            label: "Dashboard",
-            id: "dashboard",
-            subItems: [
-                "Create Client",
-                "Update Client",
-                "Search Client",
-                "Delete Client"
-            ]
-        },
+
         {
             label: "Transaction",
             id: "transcation",
             subItems: [
-                "Create Client",
-                "Update Client",
-                "Search Client",
-                "Delete Client"
+                "NFO",
+                "Purchase",
+                "Redeem",
+                "Switch",
+                "SIP",
+                "STP",
+                "SWP",
+                "SIP cancellation",
             ]
         },
         {
-            label: "SIP",
-            id: "sip",
+            label: "General",
+            id: "general",
             subItems: [
-                "Create Client",
-                "Update Client",
-                "Search Client",
-                "Delete Client"
+                "CEMCOM",
+                "Investor login maintainace",
+
             ]
         },
+
         {
             label: "Calculater",
             id: "Calculater",
@@ -60,11 +67,18 @@ export default function Navbar() {
             id: "reports",
             subItems: ["Monthly Report", "Yearly Report"]
         },
+
         {
-            label: "About",
-            id: "about",
+            label: "Contact",
+            id: "contact",
             subItems: []
-        }
+        },
+        {
+            label: "FAQ",
+            id: "faq",
+            subItems: []
+        },
+
     ];
 
     return (
