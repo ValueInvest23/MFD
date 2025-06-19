@@ -8,9 +8,9 @@ const App = () => {
   return (
     <>
       <Navbar />
-      {/* <CreateClientForm /> */}
-      <AuthComponent />
- 
+      <CreateClientForm />
+      {/* <AuthComponent /> */}
+
     </>
   )
 }
