@@ -24,11 +24,18 @@ const Dashboard = () => {
             textColor: "text-black",
             shadow: "hover:shadow-amber-300/40",
         },
+        {
+            name: "Investment",
+            amount: 95000,
+            gradient: "from-green-400 via-emerald-500 to-lime-500",
+            textColor: "text-white",
+            shadow: "hover:shadow-emerald-400/40",
+        },
     ];
 
     return (
-        <div className="bg-zinc-900 min-h-screen w-full pt-6 px-4 text-white">
-            <div className="flex flex-wrap justify-center gap-4">
+        <div className="bg-zinc-900 min-h-screen w-full pt-12 px-4 text-white ">
+            <div className="flex flex-wrap justify-center gap-12">
                 {data.map((item, index) => (
                     <div
                         key={index}
