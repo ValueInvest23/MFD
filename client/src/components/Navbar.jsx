@@ -1,36 +1,20 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { LogOut, X, ChevronDown } from "lucide-react";
-import React from "react";
 
 export default function Navbar() {
-    const [activeLink, setActiveLink] = useState("home");
+    const [activeLink, setActiveLink] = useState("dashboard");
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
 
     const navItems = [
-        {
-            label: "Dashboard",
-            id: "dashboard",
-            subItems: [
-
-            ]
-        },
-        {
-            label: "CRM",
-            id: "crm",
-            subItems: [
-
-            ]
-        },
+        { label: "Dashboard", id: "dashboard", subItems: [] },
+        { label: "CRM", id: "crm", subItems: [] },
         {
             label: "Client",
             id: "client",
-            subItems: [
-                "Create Client",
-                "Update Client",
-            ]
+            subItems: ["Create Client", "Update Client"],
         },
-
         {
             label: "Transaction",
             id: "transcation",
@@ -43,47 +27,27 @@ export default function Navbar() {
                 "STP",
                 "SWP",
                 "SIP cancellation",
-            ]
+            ],
         },
         {
             label: "General",
             id: "general",
-            subItems: [
-                "CEMCOM",
-                "Investor login maintainace",
-
-            ]
+            subItems: ["CEMCOM", "Investor login maintainace"],
         },
-
-        {
-            label: "Calculater",
-            id: "Calculater",
-            subItems: [
-
-            ]
-        },
+        { label: "Calculater", id: "Calculater", subItems: [] },
         {
             label: "Reports",
             id: "reports",
-            subItems: ["Monthly Report", "Yearly Report"]
+            subItems: ["Monthly Report", "Yearly Report"],
         },
-
-        {
-            label: "Contact",
-            id: "contact",
-            subItems: []
-        },
-        {
-            label: "FAQ",
-            id: "faq",
-            subItems: []
-        },
-
+        { label: "Contact", id: "contact", subItems: [] },
+        { label: "FAQ", id: "faq", subItems: [] },
     ];
 
+    const makeSlug = (text) => text.toLowerCase().replace(/\s+/g, "-");
+
     return (
-        <div className="relative  
-         text-white">
+        <div className="relative text-white">
             {isMobileMenuOpen && (
                 <div
                     className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40"
@@ -91,6 +55,7 @@ export default function Navbar() {
                 ></div>
             )}
 
+            {/* Top Bar */}
             <div className="bg-gray-900 px-6 py-3 flex justify-between items-center z-50">
                 <div className="text-xl font-bold">Value Investing</div>
                 <div className="flex items-center space-x-3">
@@ -115,7 +80,8 @@ export default function Navbar() {
                 </div>
             </div>
 
-            <div className="bg-gray-800 hidden md:flex md:justify-center md:items-center md:gap-2 px-4 py-2 space-x-6">
+            {/* Desktop Menu */}
+            <div className="bg-gray-800 hidden md:flex md:justify-center px-4 py-2 space-x-6">
                 {navItems.map((item) => (
                     <div
                         key={item.id}
@@ -123,43 +89,47 @@ export default function Navbar() {
                         onMouseEnter={() => setOpenDropdown(item.id)}
                         onMouseLeave={() => setOpenDropdown(null)}
                     >
-                        <button
-                            onClick={() => {
-                                setActiveLink(item.id);
-                                setOpenDropdown(openDropdown === item.id ? null : item.id);
-                            }}
-                            className={`flex items-center space-x-1 text-sm font-medium hover:text-blue-400 ${activeLink === item.id ? "text-blue-400 underline" : "text-white"
-                                }`}
-                        >
-                            <span>{item.label}</span>
-                            {item.subItems.length > 0 && (
-                                <ChevronDown
-                                    size={16}
-                                    className={`transition-transform duration-200 ${openDropdown === item.id ? "rotate-180" : "rotate-0"}`}
-                                />
-                            )}
-                        </button>
-                        {item.subItems.length > 0 && openDropdown === item.id && (
-                            <div className="absolute top-full left-0 mt-1 bg-gray-700 rounded-lg shadow-lg py-2 w-48 z-50">
-                                {item.subItems.map((subItem, idx) => (
-                                    <div
-                                        key={idx}
-                                        className="block px-4 py-2 text-sm hover:bg-gray-600 cursor-pointer"
-                                    >
-                                        {subItem}
-                                    </div>
-                                ))}
-                            </div>
+                        {item.subItems.length === 0 ? (
+                            <Link
+                                to={`/${item.id}`}
+                                onClick={() => setActiveLink(item.id)}
+                                className={`text-sm font-medium hover:text-blue-400 ${activeLink === item.id ? "text-blue-400 underline" : "text-white"}`}
+                            >
+                                {item.label}
+                            </Link>
+                        ) : (
+                            <>
+                                <button
+                                    className={`flex items-center space-x-1 text-sm font-medium hover:text-blue-400 ${activeLink === item.id ? "text-blue-400 underline" : "text-white"}`}
+                                >
+                                    <span>{item.label}</span>
+                                    <ChevronDown
+                                        size={16}
+                                        className={`transition-transform duration-200 group-hover:rotate-180 ${openDropdown === item.id ? "rotate-180" : "rotate-0"}`}
+                                    />
+                                </button>
+                                <div className="absolute top-full left-0 mt-1 bg-gray-700 rounded-lg shadow-lg py-2 w-48 z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200">
+                                    {item.subItems.map((subItem, i) => (
+                                        <Link
+                                            key={i}
+                                            to={`/${item.id}/${makeSlug(subItem)}`}
+                                            className="block px-4 py-2 text-sm hover:bg-gray-600"
+                                        >
+                                            {subItem}
+                                        </Link>
+                                    ))}
+                                </div>
+                            </>
                         )}
                     </div>
                 ))}
             </div>
 
+            {/* Mobile Menu */}
             <div
-                className={`fixed top-0 right-0 h-full w-64 bg-gray-900 shadow-lg transform transition-transform duration-300 z-50 md:hidden ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-                    }`}
+                className={`fixed top-0 right-0 h-full w-64 bg-gray-900 transform transition-transform duration-300 z-50 md:hidden ${isMobileMenuOpen ? "translate-x-0" : "translate-x-full"}`}
             >
-                <div className="p-6 flex flex-col space-y-4 h-full relative">
+                <div className="p-6 space-y-4 relative h-full">
                     <button
                         className="absolute top-4 right-4 text-white hover:text-red-500"
                         onClick={() => setIsMobileMenuOpen(false)}
@@ -182,41 +152,60 @@ export default function Navbar() {
                     </div>
 
                     {navItems.map((item) => (
-                        <div key={item.id} className="space-y-1">
-                            <button
-                                onClick={() => {
-                                    setActiveLink(item.id);
-                                    setOpenDropdown(openDropdown === item.id ? null : item.id);
-                                }}
-                                className={`flex justify-between items-center w-full text-left text-sm font-medium hover:text-blue-400 ${activeLink === item.id ? "text-blue-400 underline" : "text-white"
-                                    }`}
-                            >
-                                {item.label}
-                                {item.subItems.length > 0 && (
-                                    <ChevronDown
-                                        size={16}
-                                        className={`transition-transform duration-200 ${openDropdown === item.id ? "rotate-180" : "rotate-0"}`}
-                                    />
-                                )}
-                            </button>
-                            {openDropdown === item.id && item.subItems.length > 0 && (
-                                <div className="pl-4 space-y-1">
-                                    {item.subItems.map((subItem, idx) => (
-                                        <div
-                                            key={idx}
-                                            className="block text-sm text-gray-300 hover:text-white cursor-pointer"
-                                        >
-                                            {subItem}
+                        <div key={item.id}>
+                            {item.subItems.length === 0 ? (
+                                <Link
+                                    to={`/${item.id}`}
+                                    onClick={() => {
+                                        setActiveLink(item.id);
+                                        setIsMobileMenuOpen(false);
+                                    }}
+                                    className={`block text-sm py-1 font-medium hover:text-blue-400 ${activeLink === item.id
+                                        ? "text-blue-400 underline"
+                                        : "text-white"
+                                        }`}
+                                >
+                                    {item.label}
+                                </Link>
+                            ) : (
+                                <div>
+                                    <button
+                                        onClick={() =>
+                                            setOpenDropdown(
+                                                openDropdown === item.id ? null : item.id
+                                            )
+                                        }
+                                        className="flex justify-between items-center w-full text-sm font-medium text-white"
+                                    >
+                                        {item.label}
+                                        <ChevronDown
+                                            size={16}
+                                            className={`transition-transform duration-200 ${openDropdown === item.id
+                                                ? "rotate-180"
+                                                : "rotate-0"
+                                                }`}
+                                        />
+                                    </button>
+                                    {openDropdown === item.id && (
+                                        <div className="pl-4 pt-1">
+                                            {item.subItems.map((subItem, i) => (
+                                                <Link
+                                                    key={i}
+                                                    to={`/${item.id}/${makeSlug(subItem)}`}
+                                                    onClick={() => setIsMobileMenuOpen(false)}
+                                                    className="block text-sm text-gray-300 hover:text-white py-1"
+                                                >
+                                                    {subItem}
+                                                </Link>
+                                            ))}
                                         </div>
-                                    ))}
+                                    )}
                                 </div>
                             )}
                         </div>
                     ))}
                 </div>
             </div>
-
-
         </div>
     );
 }

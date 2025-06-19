@@ -1,7 +1,9 @@
+import { useRef } from "react";
 import React, { useState } from "react";
 import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 const CreateClientForm = () => {
+  const inputRefs = useRef({});
   //all input fileds
   const inputFields = [
     {
@@ -191,17 +193,8 @@ const CreateClientForm = () => {
   //state for dropdown menu icon state management
   const [dropdownState, setDropdownState] = useState({});
   //selected file state management 
-  const [selectedFiles, setSelectedFiles] = useState({
-    document1: null,
-    document2: null,
-    document3: null,
-  });
-
-  const [preview, setPreview] = useState({
-    document1: null,
-    document2: null,
-    document3: null,
-  });
+  const [selectedFiles, setSelectedFiles] = useState({});
+  const [preview, setPreview] = useState({});
   //state management of the selection input fileds
   const setDropdown = Object.fromEntries(
     inputFields
@@ -225,6 +218,12 @@ const CreateClientForm = () => {
   const removeFile = (key) => {
     setSelectedFiles((prev) => ({ ...prev, [key]: null }));
     setPreview((prev) => ({ ...prev, [key]: null }));
+
+
+    // ✅ Clear the actual input field
+    if (inputRefs.current[key]) {
+      inputRefs.current[key].value = "";
+    }
   };
   //for state-management of the input fileds
   const handleChange = (e) => {
@@ -240,12 +239,24 @@ const CreateClientForm = () => {
     e.preventDefault();
     const data = new FormData();
 
-    // Add form fields
+    // Add form data
     Object.entries(formData).forEach(([key, value]) => {
       data.append(key, value);
     });
 
-    // ✅ Clear selected files state and previews
+    // Add files (safe check)
+    if (selectedFiles && typeof selectedFiles === "object") {
+      Object.entries(selectedFiles).forEach(([key, file]) => {
+        if (file) data.append(key, file);
+      });
+    }
+
+    // Log data
+    for (let pair of data.entries()) {
+      console.log(`${pair[0]}:`, pair[1]);
+    }
+
+    // Reset form and file previews
     setFormData({
       salutation: "",
       name: "",
@@ -277,20 +288,19 @@ const CreateClientForm = () => {
       customerType: "",
       loginStatus: "",
     });
-    setSelectedFile(null);
-    setPreview(null);
 
-    // Add files
-    Object.entries(selectedFiles).forEach(([key, file]) => {
-      if (file) data.append(key, file);
+    setSelectedFiles({});
+    setPreview({});
+
+    // ✅ Clear file input elements
+    Object.keys(inputRefs.current).forEach((key) => {
+      if (inputRefs.current[key]) {
+        inputRefs.current[key].value = "";
+      }
     });
-
-    // Show in console
-    for (let pair of data.entries()) {
-      console.log(`${pair[0]}:`, pair[1]);
-    }
-
   };
+
+
   // cancel button logic
   const handleCancel = () => {
     setFormData({
@@ -404,16 +414,18 @@ const CreateClientForm = () => {
         <br />
 
         {/* File Upload Section */}
-        <div className="mt-8 w-full max-w-screen-xl mx-auto bg-zinc-800 p-6 rounded-xl shadow-lg border border-zinc-700">
-          <h2 className="text-lg font-semibold text-blue-400 mb-4">Upload Documents (Images)</h2>
+        <div className="mt-8 w-full max-w-screen-xl mx-auto bg-zinc-800 p-4 sm:p-6 rounded-xl shadow-lg border border-zinc-700">
+          <h2 className="text-lg font-semibold text-blue-400 mb-4">
+            Upload Documents (Images)
+          </h2>
 
-          <div className="grid grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {uploadFileds.map((num) => {
               const key = `document${num}`;
               return (
                 <div
                   key={key}
-                  className="flex flex-col md:flex-row items-center gap-4 bg-zinc-900 p-4 rounded-lg border border-zinc-700 shadow-md w-full"
+                  className="flex flex-col sm:flex-row sm:items-center gap-4 bg-zinc-900 p-4 rounded-lg border border-zinc-700 shadow-md w-full"
                 >
                   <div className="flex-1 w-full">
                     <label className="block text-sm text-gray-300 font-medium mb-2">
@@ -422,32 +434,34 @@ const CreateClientForm = () => {
                     <input
                       type="file"
                       accept="image/*"
+                      ref={(el) => (inputRefs.current[key] = el)} // key = document1, document2 etc.
                       onChange={(e) => handleFileChange(e, key)}
                       className="w-full text-sm text-gray-200 file:bg-zinc-700 file:text-white file:rounded file:px-3 file:py-2 file:border-0 file:font-medium hover:file:bg-zinc-600"
                     />
                   </div>
 
                   {preview[key] && (
-                    <>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3 w-full sm:w-auto">
                       <img
                         src={preview[key]}
                         alt="preview"
-                        className="w-32 h-24 object-cover rounded border border-zinc-600"
+                        className="w-full sm:w-32 h-24 object-cover rounded border border-zinc-600"
                       />
                       <button
                         type="button"
                         onClick={() => removeFile(key)}
-                        className="text-sm bg-red-600 px-3 py-1 rounded hover:bg-red-500"
+                        className="text-sm bg-red-600 px-3 py-1 rounded hover:bg-red-500 text-white"
                       >
                         Remove
                       </button>
-                    </>
+                    </div>
                   )}
                 </div>
               );
             })}
           </div>
         </div>
+
         <div className="col-span-full flex justify-center gap-6 mt-4">
           <button
             type="submit"
