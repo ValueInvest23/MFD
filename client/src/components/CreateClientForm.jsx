@@ -340,13 +340,13 @@ const CreateClientForm = () => {
 
   //for input fileds styling classnames 
   const inputClass =
-    "peer w-full rounded-3xl border border-gray-500 bg-zinc-900 px-4 pt-5 pb-2 text-sm text-white placeholder-transparent focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all duration-200";
+    "peer w-full  rounded-tl-2xl rounded-br-2xl  border border-gray-500 bg-zinc-900 px-4 pt-5 pb-2 text-sm text-white placeholder-transparent focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all duration-200";
   //for selected fileds styling classnames 
   const selectClass =
-    "peer block w-full appearance-none rounded-3xl border border-gray-400 bg-zinc-900 px-4 pt-6 pb-2 text-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 pr-10";
+    "peer block w-full appearance-none  rounded-tl-2xl rounded-br-2xl  border border-gray-400 bg-zinc-900 px-4 pt-6 pb-2 text-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-200 pr-10";
   //for label styling classnames
   const labelClass =
-    "absolute -top-2 left-4 z-10 rounded-xl px-3 text-sm text-blue-400 bg-zinc-900 transition-all duration-200 transform scale-90 origin-top-left peer-placeholder-shown:top-4 peer-placeholder-shown:left-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-zinc-500 peer-placeholder-shown:bg-zinc-900 peer-placeholder-shown:scale-100 peer-focus:-top-2 peer-focus:left-4 peer-focus:text-blue-400 peer-focus:bg-zinc-900 peer-focus:scale-90";
+    "absolute -top-2 left-4 z-10  rounded-tl-2xl rounded-br-2xl  px-3 text-sm text-blue-400 bg-zinc-900 transition-all duration-200 transform scale-90 origin-top-left peer-placeholder-shown:top-4 peer-placeholder-shown:left-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-zinc-500 peer-placeholder-shown:bg-zinc-900 peer-placeholder-shown:scale-100 peer-focus:-top-2 peer-focus:left-4 peer-focus:text-blue-400 peer-focus:bg-zinc-900 peer-focus:scale-90";
 
 
   return (
@@ -414,7 +414,7 @@ const CreateClientForm = () => {
         <br />
 
         {/* File Upload Section */}
-        <div className="mt-8 w-full max-w-screen-xl mx-auto bg-zinc-800 p-4 sm:p-6 rounded-xl shadow-lg border border-zinc-700">
+        <div className="mt-8 w-full max-w-screen-xl mx-auto bg-zinc-800 p-4 sm:p-6  rounded-tl-xl rounded-br-xl  shadow-lg border border-zinc-700">
           <h2 className="text-lg font-semibold text-blue-400 mb-4">
             Upload Documents (Images)
           </h2>
@@ -425,7 +425,7 @@ const CreateClientForm = () => {
               return (
                 <div
                   key={key}
-                  className="flex flex-col sm:flex-row sm:items-center gap-4 bg-zinc-900 p-4 rounded-lg border border-zinc-700 shadow-md w-full"
+                  className="flex flex-col sm:flex-row sm:items-center gap-4 bg-zinc-900 p-4 rounded-tl-lg rounded-br-lg border border-zinc-700 shadow-md w-full"
                 >
                   <div className="flex-1 w-full">
                     <label className="block text-sm text-gray-300 font-medium mb-2">

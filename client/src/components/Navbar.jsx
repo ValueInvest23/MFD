@@ -80,7 +80,7 @@ export default function Navbar() {
                                     initial={{ opacity: 0, y: -10 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     exit={{ opacity: 0, y: -10 }}
-                                    className="absolute top-12 right-0 bg-gray-900 shadow-lg rounded-xl px-4 py-3 w-48 z-50 border border-gray-700"
+                                    className="absolute top-12 right-0 bg-gray-900 shadow-lg rounded-tl-xl rounded-br-xl px-4 py-3 w-48 z-50 border border-gray-700"
                                 >
                                     <div className="text-sm font-semibold text-white">YASH HEMENDRA GANDHI</div>
                                     <div className="mt-2">
@@ -145,7 +145,7 @@ export default function Navbar() {
                                         className={`transition-transform duration-200 group-hover:rotate-180 ${openDropdown === item.id ? "rotate-180" : "rotate-0"}`}
                                     />
                                 </button>
-                                <div className="absolute top-full left-0 mt-1 bg-gray-700 rounded-lg shadow-lg py-2 w-48 z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200">
+                                <div className="absolute top-full left-0 mt-1 bg-gray-700 rounded-tl-xl rounded-br-xl shadow-lg py-2 w-48 z-50 invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-200">
                                     {item.subItems.map((subItem, i) => (
                                         <Link
                                             key={i}

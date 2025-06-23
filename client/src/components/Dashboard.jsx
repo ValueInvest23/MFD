@@ -65,28 +65,39 @@ export default function Dashboard() {
       {/* cards */}
       <div className="flex flex-wrap justify-between gap-4 animate-fade-in">
         {["AUM Income", "Total Income", "Budget", "Income"].map((title, i) => (
-          <div key={i} className="flex-1 min-w-[200px] bg-gray-800 rounded-2xl shadow-lg p-4 hover:scale-105 transition-transform duration-300">
+          <div
+            key={i}
+            className="flex-1 min-w-[200px] bg-gray-800 
+                 rounded-tl-2xl rounded-br-2xl 
+                 shadow-lg p-4 
+                   transition-all duration-300 ease-in-out
+                   hover:shadow-[0_0_15px_3px_rgba(59,130,246,0.4)]
+                    hover:scale-[1.03]"
+          >
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-semibold flex items-center gap-1">
                 <Sparkles className="text-blue-400" size={20} /> {title}
               </h2>
-              <span className="text-2xl font-bold text-blue-400">₹{(100000 + i * 50000).toLocaleString()}</span>
+              <span className="text-2xl font-bold text-blue-400">
+                ₹{(100000 + i * 50000).toLocaleString()}
+              </span>
             </div>
           </div>
         ))}
       </div>
+
       <div className="flex flex-col gap-6">
         {/* Income Graph */}
-        <div className="w-full bg-gray-800 rounded-2xl shadow-xl p-4">
+        <div className="w-full bg-gray-800  rounded-tl-2xl rounded-br-2xl  shadow-xl p-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
             <h2 className="text-xl font-semibold text-white">Income Graph</h2>
             <div className="flex flex-wrap gap-2 sm:justify-end">
               {["6", "12", "24"].map((val) => (
                 <button
                   key={val}
-                  className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-200 ${selectedRange === val
-                      ? "bg-blue-600 text-white shadow-lg"
-                      : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                  className={`px-3 py-1  rounded-tl-lg rounded-br-lg  text-sm font-medium transition-all duration-200 ${selectedRange === val
+                    ? "bg-blue-600 text-white shadow-lg"
+                    : "bg-gray-700 text-gray-300 hover:bg-gray-600"
                     }`}
                   onClick={() => setSelectedRange(val)}
                 >
@@ -119,7 +130,7 @@ export default function Dashboard() {
         {/* Side-by-side container */}
         <div className="w-full flex flex-col lg:flex-row gap-6">
           {/* Pie Chart */}
-          <div className="w-full lg:w-1/2 bg-gray-800 rounded-2xl shadow-xl p-4">
+          <div className="w-full lg:w-1/2 bg-gray-800  rounded-tl-2xl rounded-br-2xl  shadow-xl p-4">
             <h2 className="text-xl font-semibold text-white mb-4">Client Investment Distribution</h2>
             <ResponsiveContainer width="100%" height={300}>
               <PieChart>
@@ -142,7 +153,7 @@ export default function Dashboard() {
           </div>
 
           {/* Top 10 Clients */}
-          <div className="w-full lg:w-1/2 bg-gray-800 rounded-2xl shadow-xl p-4 overflow-x-auto">
+          <div className="w-full lg:w-1/2 bg-gray-800 rounded-tl-2xl rounded-br-2xl shadow-xl p-4 overflow-x-auto">
             <h2 className="text-xl font-semibold text-white mb-4">Top 10 Clients</h2>
             <table className="min-w-[600px] w-full text-sm text-left text-gray-300">
               <thead className="text-xs uppercase bg-gray-700 text-gray-400">
@@ -157,7 +168,7 @@ export default function Dashboard() {
                 {topClients.map((client, index) => (
                   <tr
                     key={index}
-                    className="border-b border-gray-700 hover:bg-gray-700 transition duration-200"
+                    className="border-b border-gray-700 transition-all duration-300 transform hover:scale-[1.015] hover:shadow-md hover:bg-gray-700"
                   >
                     <td className="px-4 py-2 font-medium text-white">{client.name}</td>
                     <td className="px-4 py-2">{client.pan}</td>
@@ -177,27 +188,41 @@ export default function Dashboard() {
               </tbody>
             </table>
           </div>
+
         </div>
       </div>
 
 
       {/* top 5 compines */}
-      <div className="bg-gray-800 rounded-2xl shadow-xl p-4 mt-6">
-        <h2 className="text-xl font-semibold mb-4">Top 5 Companies</h2>
+      <div className="bg-gray-800 rounded-tl-2xl rounded-br-2xl shadow-xl p-6 mt-6">
+        <h2 className="text-xl font-semibold mb-6 text-white">Top 5 Companies</h2>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           {topCompanies.map((company, index) => (
             <div
               key={index}
-              className="flex flex-col items-center justify-center bg-gray-700 rounded-xl p-4 hover:bg-blue-600 hover:text-white transition-colors duration-300"
+              className="group flex flex-col items-center justify-center
+                   bg-gray-700 text-white p-5
+                   rounded-tl-xl rounded-br-xl
+                   transition-all duration-300 ease-in-out
+                   hover:shadow-[0_0_15px_3px_rgba(59,130,246,0.4)]
+                   hover:-translate-y-1 hover:scale-[1.03]"
             >
-              <div className={`h-12 w-12 rounded-full ${company.color} flex items-center justify-center text-white text-lg font-bold mb-2`}>
+              <div
+                className={`h-14 w-14 rounded-full ${company.color}
+                      flex items-center justify-center
+                      text-white text-lg font-bold mb-3
+                      shadow-md group-hover:shadow-lg`}
+              >
                 {company.name.charAt(0)}
               </div>
-              <p className="text-center text-sm font-medium text-gray-200">{company.name}</p>
+              <p className="text-center text-sm font-medium text-gray-200 group-hover:text-white">
+                {company.name}
+              </p>
             </div>
           ))}
         </div>
       </div>
+
     </div>
   );
 }
