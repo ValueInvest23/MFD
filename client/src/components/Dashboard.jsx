@@ -62,6 +62,7 @@ export default function Dashboard() {
 
   return (
     <div className="space-y-6 p-4 bg-gradient-to-b from-black to-gray-900 min-h-screen text-white">
+      {/* cards */}
       <div className="flex flex-wrap justify-between gap-4 animate-fade-in">
         {["AUM Income", "Total Income", "Budget", "Income"].map((title, i) => (
           <div key={i} className="flex-1 min-w-[200px] bg-gray-800 rounded-2xl shadow-lg p-4 hover:scale-105 transition-transform duration-300">
@@ -74,18 +75,19 @@ export default function Dashboard() {
           </div>
         ))}
       </div>
-
-      <div className="flex flex-wrap gap-4">
-        <div className="w-full lg:w-[100%] bg-gray-800 rounded-2xl shadow-xl p-4">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-xl font-semibold">Income Graph</h2>
-            <div className="space-x-2">
+      <div className="flex flex-col gap-6">
+        {/* Income Graph */}
+        <div className="w-full bg-gray-800 rounded-2xl shadow-xl p-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-4">
+            <h2 className="text-xl font-semibold text-white">Income Graph</h2>
+            <div className="flex flex-wrap gap-2 sm:justify-end">
               {["6", "12", "24"].map((val) => (
                 <button
                   key={val}
-                  className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    selectedRange === val ? "bg-blue-600 text-white shadow-lg" : "bg-gray-700 text-gray-300 hover:bg-gray-600"
-                  }`}
+                  className={`px-3 py-1 rounded-lg text-sm font-medium transition-all duration-200 ${selectedRange === val
+                      ? "bg-blue-600 text-white shadow-lg"
+                      : "bg-gray-700 text-gray-300 hover:bg-gray-600"
+                    }`}
                   onClick={() => setSelectedRange(val)}
                 >
                   Last {val} Months
@@ -97,59 +99,89 @@ export default function Dashboard() {
             <LineChart data={dataSets[selectedRange]}>
               <XAxis dataKey="month" stroke="#ffffff" />
               <YAxis stroke="#ffffff" />
-              <Tooltip contentStyle={{ backgroundColor: '#1e293b', borderColor: '#1e293b', color: '#fff' }} labelStyle={{ color: '#fff' }} itemStyle={{ color: '#fff' }} />
-              <Line type="monotone" dataKey="income" stroke="#3b82f6" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
+              <Tooltip
+                contentStyle={{ backgroundColor: "#1e293b", borderColor: "#1e293b", color: "#fff" }}
+                labelStyle={{ color: "#fff" }}
+                itemStyle={{ color: "#fff" }}
+              />
+              <Line
+                type="monotone"
+                dataKey="income"
+                stroke="#3b82f6"
+                strokeWidth={3}
+                dot={{ r: 4 }}
+                activeDot={{ r: 6 }}
+              />
             </LineChart>
           </ResponsiveContainer>
-        </div>g
+        </div>
 
-        <div className="w-full lg:w-[100%] bg-gray-800 rounded-2xl shadow-xl p-4">
-          <h2 className="text-xl font-semibold mb-4">Top 10 Clients</h2>
-          <table className="w-full text-sm text-left text-gray-300">
-            <thead className="text-xs uppercase bg-gray-700 text-gray-400">
-              <tr>
-                <th className="px-4 py-2">Name</th>
-                <th className="px-4 py-2">PAN</th>
-                <th className="px-4 py-2">Income</th>
-                <th className="px-4 py-2">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {topClients.map((client, index) => (
-                <tr key={index} className="border-b border-gray-700 hover:bg-gray-700">
-                  <td className="px-4 py-2 font-medium text-white">{client.name}</td>
-                  <td className="px-4 py-2">{client.pan}</td>
-                  <td className="px-4 py-2">₹{client.income.toLocaleString()}</td>
-                  <td className={`px-4 py-2 ${client.gain ? 'text-green-400' : 'text-red-400'}`}>{client.gain ? <ArrowUpRight size={18} /> : <ArrowDownRight size={18} />}</td>
+        {/* Side-by-side container */}
+        <div className="w-full flex flex-col lg:flex-row gap-6">
+          {/* Pie Chart */}
+          <div className="w-full lg:w-1/2 bg-gray-800 rounded-2xl shadow-xl p-4">
+            <h2 className="text-xl font-semibold text-white mb-4">Client Investment Distribution</h2>
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={investmentData}
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={100}
+                  fill="#8884d8"
+                  dataKey="value"
+                  label
+                >
+                  {investmentData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+
+          {/* Top 10 Clients */}
+          <div className="w-full lg:w-1/2 bg-gray-800 rounded-2xl shadow-xl p-4 overflow-x-auto">
+            <h2 className="text-xl font-semibold text-white mb-4">Top 10 Clients</h2>
+            <table className="min-w-[600px] w-full text-sm text-left text-gray-300">
+              <thead className="text-xs uppercase bg-gray-700 text-gray-400">
+                <tr>
+                  <th className="px-4 py-2">Name</th>
+                  <th className="px-4 py-2">PAN</th>
+                  <th className="px-4 py-2">Income</th>
+                  <th className="px-4 py-2">Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {topClients.map((client, index) => (
+                  <tr
+                    key={index}
+                    className="border-b border-gray-700 hover:bg-gray-700 transition duration-200"
+                  >
+                    <td className="px-4 py-2 font-medium text-white">{client.name}</td>
+                    <td className="px-4 py-2">{client.pan}</td>
+                    <td className="px-4 py-2">₹{client.income.toLocaleString()}</td>
+                    <td
+                      className={`px-4 py-2 ${client.gain ? "text-green-400" : "text-red-400"
+                        }`}
+                    >
+                      {client.gain ? (
+                        <ArrowUpRight size={18} />
+                      ) : (
+                        <ArrowDownRight size={18} />
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
-      <div className="bg-gray-800 rounded-2xl shadow-xl p-4 mt-6">
-        <h2 className="text-xl font-semibold mb-4">Client Investment Distribution</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <PieChart>
-            <Pie
-              data={investmentData}
-              cx="50%"
-              cy="50%"
-              outerRadius={100}
-              fill="#8884d8"
-              dataKey="value"
-              label
-            >
-              {investmentData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-              ))}
-            </Pie>
-            <Legend />
-          </PieChart>
-        </ResponsiveContainer>
-      </div>
 
+      {/* top 5 compines */}
       <div className="bg-gray-800 rounded-2xl shadow-xl p-4 mt-6">
         <h2 className="text-xl font-semibold mb-4">Top 5 Companies</h2>
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { LogOut, X, ChevronDown } from "lucide-react";
+import { LogOut, X, ChevronDown, User } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Navbar() {
     const [activeLink, setActiveLink] = useState("dashboard");
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [openDropdown, setOpenDropdown] = useState(null);
+    const [showProfilePopup, setShowProfilePopup] = useState(false);
 
     const navItems = [
         { label: "Dashboard", id: "dashboard", subItems: [] },
@@ -54,23 +56,57 @@ export default function Navbar() {
                     onClick={() => setIsMobileMenuOpen(false)}
                 ></div>
             )}
+            {/* top navbar */}
+            <div className="bg-gray-900 px-6 py-3 flex justify-between items-center z-50 relative">
+                <div className="text-xl font-bold text-white">Value Investing</div>
 
-            {/* Top Bar */}
-            <div className="bg-gray-900 px-6 py-3 flex justify-between items-center z-50">
-                <div className="text-xl font-bold">Value Investing</div>
-                <div className="flex items-center space-x-3">
-                    <img
-                        src="https://i.pravatar.cc/40"
-                        alt="Avatar"
-                        className="w-10 h-10 rounded-full border-2 border-blue-500"
-                    />
-                    <span className="text-sm font-semibold">Yash</span>
+                <div className="flex items-center space-x-3 relative">
+                    {/* Avatar with Hover */}
+                    <div
+                        className="relative"
+                        onMouseEnter={() => setShowProfilePopup(true)}
+                        onMouseLeave={() => setShowProfilePopup(false)}
+                    >
+                        <img
+                            src="https://i.pravatar.cc/40"
+                            alt="Avatar"
+                            className="w-10 h-10 rounded-full border-2 border-blue-500 cursor-pointer"
+                        />
+
+                        {/* Animated Popup */}
+                        <AnimatePresence>
+                            {showProfilePopup && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -10 }}
+                                    className="absolute top-12 right-0 bg-gray-900 shadow-lg rounded-xl px-4 py-3 w-48 z-50 border border-gray-700"
+                                >
+                                    <div className="text-sm font-semibold text-white">YASH HEMENDRA GANDHI</div>
+                                    <div className="mt-2">
+                                        <button
+                                            onClick={() => alert("Viewing Profile...")}
+                                            className="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors text-sm"
+                                        >
+                                            <User size={16} />
+                                            View Profile
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </div>
+
+                    {/* Name + Logout */}
+                    <span className="text-sm font-semibold text-white hidden md:inline">YASH HEMENDRA GANDHI</span>
                     <button
-                        className="hover:text-red-500"
+                        className="hover:text-red-500 text-white"
                         onClick={() => alert("Logging out...")}
                     >
                         <LogOut size={20} />
                     </button>
+
+                    {/* Mobile Menu Button */}
                     <button
                         className="md:hidden text-white ml-2"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -79,6 +115,7 @@ export default function Navbar() {
                     </button>
                 </div>
             </div>
+
 
             {/* Desktop Menu */}
             <div className="bg-gray-800 hidden md:flex md:justify-center px-4 py-2 space-x-6">
@@ -142,7 +179,7 @@ export default function Navbar() {
                             alt="Avatar"
                             className="w-10 h-10 rounded-full border-2 border-blue-500"
                         />
-                        <span className="text-sm font-semibold">Yash</span>
+                        <span className="text-sm font-semibold">YASH HEMENDRA GANDHI</span>
                         <button
                             className="hover:text-red-500"
                             onClick={() => alert("Logging out...")}
