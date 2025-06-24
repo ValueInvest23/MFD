@@ -61,19 +61,24 @@ export default function Dashboard() {
   const [selectedRange, setSelectedRange] = useState("6");
 
   return (
-    <div className="space-y-6 p-4 bg-gradient-to-b from-black to-gray-900 min-h-screen text-white">
-      <div className="flex flex-wrap justify-between gap-4 animate-fade-in">
-        {["AUM Income", "Total Income", "Budget", "Income"].map((title, i) => (
-          <div key={i} className="flex-1 min-w-[200px] bg-gray-800 rounded-2xl shadow-lg p-4 hover:scale-105 transition-transform duration-300">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-semibold flex items-center gap-1">
-                <Sparkles className="text-blue-400" size={20} /> {title}
-              </h2>
-              <span className="text-2xl font-bold text-blue-400">₹{(100000 + i * 50000).toLocaleString()}</span>
-            </div>
-          </div>
-        ))}
+    <div className="space-y-6 p-4 bg-gray-900 min-h-screen text-white">
+     <div className="flex flex-wrap items-center justify-between gap-4 animate-fade-in">
+  {["AUM Income", "Total Income", "Budget", "Income"].map((title, i) => (
+    <div
+      key={i}
+      className="flex-1 min-w-[200px] h-[100px] bg-gray-800 rounded-2xl shadow-lg p-4 hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center text-center"
+    >
+      <div className="flex items-center gap-1 mb-2">
+        <Sparkles className="text-blue-400" size={20} />
+        <h2 className="text-xl font-semibold">{title}</h2>
       </div>
+      <span className="text-2xl font-bold text-blue-400">
+        ₹{(100000 + i * 50000).toLocaleString()}
+      </span>
+    </div>
+  ))}
+</div>
+
 
       <div className="flex flex-wrap gap-4">
         <div className="w-full lg:w-[100%] bg-gray-800 rounded-2xl shadow-xl p-4">
@@ -101,7 +106,7 @@ export default function Dashboard() {
               <Line type="monotone" dataKey="income" stroke="#3b82f6" strokeWidth={3} dot={{ r: 4 }} activeDot={{ r: 6 }} />
             </LineChart>
           </ResponsiveContainer>
-        </div>g
+        </div>
 
         <div className="w-full lg:w-[100%] bg-gray-800 rounded-2xl shadow-xl p-4">
           <h2 className="text-xl font-semibold mb-4">Top 10 Clients</h2>
